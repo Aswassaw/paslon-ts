@@ -1,0 +1,1 @@
+npx typeorm init --name crud-be --database postgres
