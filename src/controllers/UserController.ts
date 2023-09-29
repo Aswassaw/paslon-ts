@@ -8,4 +8,7 @@ export default new (class UserController {
   create(req: Request, res: Response) {
     UserService.create(req, res);
   }
+  findById(req: Request, res: Response) {
+    UserService.findById(req, res);
+  }
 })();
