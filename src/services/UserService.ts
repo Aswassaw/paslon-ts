@@ -1,24 +1,31 @@
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
-import { User } from "../entities/User";
+import { Users } from "../entities/Users";
 import { AppDataSource } from "../data-source";
-import { createUserSchema } from "../validations/User";
+import { createUserSchema } from "../validations/UserValidation";
 import { deleteFile } from "../utils/FileHelper";
-import Cloudinary from "../utils/Cloudinary";
+import { uploadToCloudinary } from "../utils/Cloudinary";
 
 class UserService {
-  private readonly UserRepository: Repository<User> =
-    AppDataSource.getRepository(User);
+  private readonly UserRepository: Repository<Users> =
+    AppDataSource.getRepository(Users);
 
   async findAll(req: Request, res: Response) {
     try {
-      const paslons = await this.UserRepository.query(`SELECT * FROM "user"`);
+      const paslons = await this.UserRepository.query(
+        `SELECT id, name, vision, image, "createdAt" as created_at, "updatedAt" as updated_at FROM "users"`
+      );
 
-      res.json({
+      return res.status(200).json({
+        code: 200,
         data: paslons,
       });
     } catch (error) {
-      return res.status(500).json({ error: "Internal Server Error" });
+      console.log(error);
+      return res.status(500).json({
+        code: 500,
+        error: "Internal Server Error",
+      });
     }
   }
 
@@ -35,19 +42,27 @@ class UserService {
 
       // if upload image then save to cloudinary
       if (req.file?.filename) {
-        image = await Cloudinary(req.file);
+        // save to cloudinary
+        image = await uploadToCloudinary(req.file);
+        // delete file from local server after save to cloudinary
+        deleteFile(req.file.path);
       }
 
-      const newPaslon = this.UserRepository.create({
-        name: data.name,
-        vision: data.vision,
-        image: data.image,
-      });
+      const newPaslon = await this.UserRepository.query(
+        `INSERT INTO users(name, vision, image) VALUES($1, $2, $3) RETURNING id, name, vision, "createdAt" as created_at, "updatedAt" as updated_at`,
+        [data.name, data.vision, image]
+      );
 
-      const todos = this.UserRepository.save(newPaslon);
-      return res.status(201).json(todos);
-    } catch (err) {
-      return res.status(500).json({ error: "Internal Server Error" });
+      return res.status(201).json({
+        code: 201,
+        data: newPaslon,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        code: 500,
+        error: "Internal Server Error",
+      });
     }
   }
 
@@ -56,12 +71,13 @@ class UserService {
       const id = req.params.id;
 
       const paslonDetail = await this.UserRepository.query(
-        `SELECT * FROM "user" WHERE id=$1`,
+        `SELECT id, name, vision, image, "createdAt" as created_at, "updatedAt" as updated_at FROM "users" WHERE id=$1`,
         [id]
       );
 
       if (!paslonDetail.length) {
         return res.status(404).json({
+          code: 404,
           error: "Paslon Not Found",
         });
       }
@@ -70,8 +86,11 @@ class UserService {
         data: paslonDetail,
       });
     } catch (error) {
-      console.log(error.message);
-      return res.status(500).json({ error: "Internal Server Error" });
+      console.log(error);
+      return res.status(500).json({
+        code: 500,
+        error: "Internal Server Error",
+      });
     }
   }
 
