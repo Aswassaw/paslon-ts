@@ -8,6 +8,18 @@ class UserService {
   private readonly UserRepository: Repository<User> =
     AppDataSource.getRepository(User);
 
+  async findAll(req: Request, res: Response) {
+    try {
+      const paslonData = await this.UserRepository.find();
+
+      res.json({
+        data: paslonData,
+      });
+    } catch (error) {
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+
   async create(req: Request, res: Response): Promise<Response> {
     try {
       const data = req.body;
