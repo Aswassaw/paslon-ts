@@ -11,4 +11,7 @@ export default new (class UserController {
   findById(req: Request, res: Response) {
     UserService.findById(req, res);
   }
+  updateById(req: Request, res: Response) {
+    UserService.updateById(req, res);
+  }
 })();
