@@ -35,7 +35,7 @@ class UserService {
 
       // validasi
       const { error } = createUserSchema.validate(data);
-      if (error) return res.status(400).json({ error });
+      if (error) return res.status(400).json({ code: 400, error });
 
       // set default image
       let image = "https://mardizu.co.id/assets/images/client/default.png";
@@ -83,6 +83,7 @@ class UserService {
       }
 
       return res.status(200).json({
+        code: 200,
         data: paslonDetail[0],
       });
     } catch (error) {
@@ -101,7 +102,7 @@ class UserService {
 
       // validasi
       const { error } = createUserSchema.validate(data);
-      if (error) return res.status(400).json({ error });
+      if (error) return res.status(400).json({ code: 400, error });
 
       // cek apakah paslon ada
       const paslonDetail = await this.UserRepository.query(
@@ -135,6 +136,37 @@ class UserService {
       return res.status(200).json({
         code: 200,
         data: paslonEdited[0],
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        code: 500,
+        error: "Internal Server Error",
+      });
+    }
+  }
+
+  async deleteById(req: Request, res: Response) {
+    try {
+      const id = req.params.id;
+
+      const paslonDetail = await this.UserRepository.query(
+        `SELECT id FROM "users" WHERE id=$1`,
+        [id]
+      );
+
+      if (!paslonDetail.length) {
+        return res.status(404).json({
+          code: 404,
+          error: "Paslon Not Found",
+        });
+      }
+
+      await this.UserRepository.query(`DELETE FROM "users" WHERE id=$1`, [id]);
+
+      return res.status(200).json({
+        code: 200,
+        data: {},
       });
     } catch (error) {
       console.log(error);

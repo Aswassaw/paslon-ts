@@ -14,4 +14,7 @@ export default new (class UserController {
   updateById(req: Request, res: Response) {
     UserService.updateById(req, res);
   }
+  deleteById(req: Request, res: Response) {
+    UserService.deleteById(req, res);
+  }
 })();

@@ -7,5 +7,6 @@ UserRoute.get("/paslons", UserController.findAll);
 UserRoute.post("/paslon", UploadImage.single("image"), UserController.create);
 UserRoute.get("/paslon/:id", UserController.findById);
 UserRoute.put("/paslon/:id", UploadImage.single("image"), UserController.updateById);
+UserRoute.delete("/paslon/:id", UserController.deleteById);
 
 export default UserRoute;
