@@ -4,23 +4,17 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  ManyToOne,
 } from "typeorm";
-import { Votes } from "./Votes";
+import { Users } from "./Users";
 
 @Entity()
-export class Users {
+export class Votes {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ length: 55 })
-  name: string;
-
-  @Column({ length: 205 })
-  vision: string;
-
-  @Column({ type: "text" })
-  image: string;
+  voterName: string;
 
   @CreateDateColumn({ type: "timestamp with time zone" })
   createdAt: Date;
@@ -28,6 +22,6 @@ export class Users {
   @UpdateDateColumn({ type: "timestamp with time zone" })
   updatedAt: Date;
 
-  @OneToMany(() => Votes, (votes) => votes.users)
-  votes: Votes[];
+  @ManyToOne(() => Users, (users) => users.votes)
+  users: Users;
 }
