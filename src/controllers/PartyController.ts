@@ -1,20 +1,20 @@
 import { Request, Response } from "express";
-import UserService from "../services/UserService";
+import PartyService from "../services/PartyService";
 
 export default new (class UserController {
   findAll(req: Request, res: Response) {
-    UserService.findAll(req, res);
+    PartyService.findAll(req, res);
   }
   create(req: Request, res: Response) {
-    UserService.create(req, res);
+    PartyService.create(req, res);
   }
   findById(req: Request, res: Response) {
-    UserService.findById(req, res);
+    PartyService.findById(req, res);
   }
   updateById(req: Request, res: Response) {
-    UserService.updateById(req, res);
+    PartyService.updateById(req, res);
   }
   deleteById(req: Request, res: Response) {
-    UserService.deleteById(req, res);
+    PartyService.deleteById(req, res);
   }
 })();

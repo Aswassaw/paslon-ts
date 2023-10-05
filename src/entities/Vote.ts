@@ -6,10 +6,10 @@ import {
   UpdateDateColumn,
   ManyToOne,
 } from "typeorm";
-import { Users } from "./Users";
+import { Paslon } from "./Paslon";
 
 @Entity()
-export class Votes {
+export class Vote {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,6 +22,6 @@ export class Votes {
   @UpdateDateColumn({ type: "timestamp with time zone" })
   updatedAt: Date;
 
-  @ManyToOne(() => Users, (users) => users.votes)
-  users: Users;
+  @ManyToOne(() => Paslon, (paslon) => paslon.votes)
+  paslon: Paslon;
 }

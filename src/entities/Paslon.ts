@@ -5,11 +5,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
-import { Votes } from "./Votes";
+import { Vote } from "./Vote";
+import { Party } from "./Party";
 
 @Entity()
-export class Users {
+export class Paslon {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -28,6 +31,10 @@ export class Users {
   @UpdateDateColumn({ type: "timestamp with time zone" })
   updatedAt: Date;
 
-  @OneToMany(() => Votes, (votes) => votes.users)
-  votes: Votes[];
+  @OneToMany(() => Vote, (vote) => vote.paslon)
+  votes: Vote[];
+
+  @ManyToMany(() => Party, (party) => party.paslons)
+  @JoinTable()
+  parties: Party[];
 }
