@@ -64,7 +64,12 @@ class PaslonService {
       const data = req.body;
 
       const { error } = createPaslonSchema.validate(data);
-      if (error) return res.status(400).json({ code: 400, error });
+      if (error) {
+        if (req.file?.filename) {
+          deleteFile(req.file.path);
+        }
+        return res.status(400).json({ code: 400, error });
+      }
 
       // kode untuk cek apakah partai sudah mengusung atau belum
       let allPartyPaslon = await this.PaslonRepository.query(
@@ -77,6 +82,9 @@ class PaslonService {
       });
 
       if (allPartyPaslon.length) {
+        if (req.file?.filename) {
+          deleteFile(req.file.path);
+        }
         return res.status(404).json({
           code: 404,
           error: "Satu partai tidak boleh mengusung lebih dari 1 paslon",
@@ -172,7 +180,12 @@ class PaslonService {
       const data = req.body;
 
       const { error } = updatePaslonSchema.validate(data);
-      if (error) return res.status(400).json({ code: 400, error });
+      if (error) {
+        if (req.file?.filename) {
+          deleteFile(req.file.path);
+        }
+        return res.status(400).json({ code: 400, error });
+      }
 
       const paslonDetail = await this.PaslonRepository.query(
         `SELECT id, image FROM "paslon" WHERE id=$1`,
@@ -180,6 +193,9 @@ class PaslonService {
       );
 
       if (!paslonDetail.length) {
+        if (req.file?.filename) {
+          deleteFile(req.file.path);
+        }
         return res.status(404).json({
           code: 404,
           error: "Paslon Not Found",
