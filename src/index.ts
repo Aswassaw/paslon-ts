@@ -12,7 +12,7 @@ AppDataSource.initialize()
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
     app.use("/api/v1", PartyRoute);
-    // app.use("/api/v1", PaslonRoute);
+    app.use("/api/v1", PaslonRoute);
     // app.use("/api/v1", VoteRoute);
 
     app.listen(port, () => {

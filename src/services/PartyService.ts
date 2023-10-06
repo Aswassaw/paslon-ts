@@ -35,7 +35,7 @@ class PartyService {
       if (error) return res.status(400).json({ code: 400, error });
 
       const newParty = await this.PartyRepository.query(
-        `INSERT INTO party(name) VALUES($1) RETURNING id, name, "createdAt" as created_at, "updatedAt" as updated_at`,
+        `INSERT INTO "party"(name) VALUES($1) RETURNING id, name, "createdAt" as created_at, "updatedAt" as updated_at`,
         [data.name]
       );
 
@@ -108,7 +108,7 @@ class PartyService {
 
       return res.status(200).json({
         code: 200,
-        data: editedParty[0],
+        data: editedParty[0][0],
       });
     } catch (error) {
       console.log(error);
