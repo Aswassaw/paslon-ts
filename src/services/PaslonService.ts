@@ -32,7 +32,7 @@ class PaslonService {
         // add party to paslon
         parties.forEach((party) => {
           if (party?.paslon_id === paslon.id) {
-            paslon.votes.push(party);
+            paslon.parties.push(party);
           }
         });
 
