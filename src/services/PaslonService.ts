@@ -22,7 +22,7 @@ class PaslonService {
         `SELECT pa.id, pa.name, ppp."paslonId" as paslon_id FROM paslon_parties_party as ppp INNER JOIN party as pa ON pa.id=ppp."partyId"`
       );
       const votes = await this.PaslonRepository.query(
-        `SELECT id, "voterName" as voter_name, "createdAt" as created_at, "updatedAt" as updated_at, "paslonId" as paslon_id FROM "vote"`
+        `SELECT v.id, u.full_name as voter_name, v."createdAt" as created_at, v."updatedAt" as updated_at, v."paslonId" as paslon_id FROM "vote" as v INNER JOIN "user" as u ON v."userId"=u.id`
       );
 
       paslons = paslons.map((paslon) => {
