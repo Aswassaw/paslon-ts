@@ -76,7 +76,7 @@
 
 ```json
 {
-  "code": 201,
+  "code": 200,
   "message": "Token is valid!"
 }
 ```

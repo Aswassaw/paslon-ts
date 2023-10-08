@@ -125,7 +125,7 @@ class AuthService {
       });
 
       return res.status(200).json({
-        code: 201,
+        code: 200,
         message: "Token is valid!",
       });
     } catch (error) {
