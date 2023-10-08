@@ -237,3 +237,208 @@
   "data": {}
 }
 ```
+
+### PASLON
+
+**Create Paslon**
+
+- URL : http://localhost:5000/api/v1/paslon
+
+- Method: POST
+
+- Required Token: No
+
+- Request Body:
+
+  Form Data:
+
+  - name: Johnny G Plate
+  - vision: Menjadi Menteri Yang Berhasil Menghubungkan Internet Di Seluruh Polandia.
+  - party: [4]
+  - image: File(1.png)
+
+- Response Body :
+
+```json
+{
+  "code": 201,
+  "data": {
+    "id": 6,
+    "name": "Johnny G Plate",
+    "vision": "Menjadi Menteri Yang Berhasil Menghubungkan Internet Di Seluruh Polandia.",
+    "image": "https://res.cloudinary.com/dogz0yvva/image/upload/v1696766288/paslon/yugtfkmev3hcvgjfhm81.png",
+    "created_at": "2023-10-08T11:53:53.129Z",
+    "updated_at": "2023-10-08T11:53:53.129Z",
+    "party": [
+      {
+        "id": 4,
+        "name": "Partai Maniak Banteng"
+      }
+    ]
+  }
+}
+```
+
+**Find All Paslon**
+
+- URL : http://localhost:5000/api/v1/paslons
+
+- Method: GET
+
+- Required Token: No
+
+- Response Body :
+
+```json
+{
+  "code": 200,
+  "data": [
+    {
+      "id": 3,
+      "name": "Fer D Sambo",
+      "vision": "Menjadi Polisi Nomor 1 Di WakandaNesia.",
+      "image": "https://res.cloudinary.com/dogz0yvva/image/upload/v1696565889/paslon/ipxqomf8gatvbbmkkp2r.png",
+      "created_at": "2023-10-08T08:41:58.597Z",
+      "updated_at": "2023-10-08T08:41:58.597Z",
+      "parties": [
+        {
+          "id": 1,
+          "name": "Partai Dewa Banteng",
+          "paslon_id": 3
+        }
+      ],
+      "votes": [
+        {
+          "id": 2,
+          "voter_name": "Andry Pebrianto",
+          "created_at": "2023-10-08T08:50:15.127Z",
+          "updated_at": "2023-10-08T08:50:15.127Z",
+          "paslon_id": 3
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Mega Foo An",
+      "vision": "Menjadi Wakil Rakyat Paling Dicintai Di KonohaNesia",
+      "image": "https://res.cloudinary.com/dogz0yvva/image/upload/v1696573928/paslon/tuyazzpqwwfxuknhickg.png",
+      "created_at": "2023-10-08T08:46:05.026Z",
+      "updated_at": "2023-10-08T08:46:05.026Z",
+      "parties": [
+        {
+          "id": 2,
+          "name": "Partai Banteng Biru",
+          "paslon_id": 5
+        },
+        {
+          "id": 3,
+          "name": "Partai Banteng Stres",
+          "paslon_id": 5
+        }
+      ],
+      "votes": []
+    },
+    {
+      "id": 6,
+      "name": "Johnny G Plate",
+      "vision": "Menjadi Menteri Yang Berhasil Menghubungkan Internet Di Seluruh Polandia.",
+      "image": "https://res.cloudinary.com/dogz0yvva/image/upload/v1696766288/paslon/yugtfkmev3hcvgjfhm81.png",
+      "created_at": "2023-10-08T11:53:53.129Z",
+      "updated_at": "2023-10-08T11:53:53.129Z",
+      "parties": [
+        {
+          "id": 4,
+          "name": "Partai Maniak Banteng",
+          "paslon_id": 6
+        }
+      ],
+      "votes": []
+    }
+  ]
+}
+```
+
+**Find Palson By Id**
+
+- URL : http://localhost:5000/api/v1/paslon/3
+
+- Method: GET
+
+- Required Token: No
+
+- Response Body :
+
+```json
+{
+  "code": 200,
+  "data": {
+    "id": 3,
+    "name": "Fer D Sambo",
+    "vision": "Menjadi Polisi Nomor 1 Di WakandaNesia.",
+    "image": "https://res.cloudinary.com/dogz0yvva/image/upload/v1696565889/paslon/ipxqomf8gatvbbmkkp2r.png",
+    "created_at": "2023-10-08T08:41:58.597Z",
+    "updated_at": "2023-10-08T08:41:58.597Z",
+    "parties": [
+      {
+        "id": 1,
+        "name": "Partai Dewa Banteng"
+      }
+    ]
+  }
+}
+```
+
+**Update Paslon By Id**
+
+- URL : http://localhost:5000/api/v1/party/7
+
+- Method: PUT
+
+- Required Token: No
+
+- Request Body:
+
+  Form Data:
+
+  - name: Johnny G Plate (Update)
+  - vision: Menjadi Menteri Yang Berhasil Menghubungkan Internet Di Seluruh Polandia. (Update)
+  - image: File(2.png)
+
+- Response Body :
+
+```json
+{
+  "code": 200,
+  "data": {
+    "id": 6,
+    "name": "Johnny G Plate (Update)",
+    "vision": "Menjadi Menteri Yang Berhasil Menghubungkan Internet Di Seluruh Polandia. (Update)",
+    "image": "https://res.cloudinary.com/dogz0yvva/image/upload/v1696565889/paslon/ipxqomf8gatvbbmkkp2r.png",
+    "created_at": "2023-10-08T11:53:53.129Z",
+    "updated_at": "2023-10-08T12:06:25.898Z",
+    "parties": [
+      {
+        "id": 4,
+        "name": "Partai Maniak Banteng"
+      }
+    ]
+  }
+}
+```
+
+**Delete Paslon By Id**
+
+- URL : http://localhost:5000/api/v1/paslon/6
+
+- Method: DELETE
+
+- Required Token: No
+
+- Response Body :
+
+```json
+{
+  "code": 200,
+  "data": {}
+}
+```
