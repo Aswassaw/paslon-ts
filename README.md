@@ -238,6 +238,8 @@
 }
 ```
 
+---
+
 ### PASLON
 
 **Create Paslon**
@@ -358,7 +360,7 @@
 }
 ```
 
-**Find Palson By Id**
+**Find Paslon By Id**
 
 - URL : http://localhost:5000/api/v1/paslon/3
 
@@ -440,5 +442,96 @@
 {
   "code": 200,
   "data": {}
+}
+```
+
+---
+
+### VOTE
+
+**Create Vote**
+
+- URL : http://localhost:5000/api/v1/vote
+
+- Method: POST
+
+- Required Token: Yes
+
+- Request Body:
+
+```json
+{
+  "paslonId": 1
+}
+```
+
+- Response Body :
+
+```json
+{
+  "code": 201,
+  "data": {
+    "id": 4,
+    "voter_name": "Adi Chahyionio",
+    "paslon": {
+      "id": 5,
+      "name": "Mega Foo An",
+      "vision": "Menjadi Wakil Rakyat Paling Dicintai Di KonohaNesia"
+    }
+  }
+}
+```
+
+**Find All Vote**
+
+- URL : http://localhost:5000/api/v1/votes
+
+- Method: GET
+
+- Required Token: No
+
+- Response Body :
+
+```json
+{
+  "code": 200,
+  "data": [
+    {
+      "id": 2,
+      "createdAt": "2023-10-08T08:50:15.127Z",
+      "updatedAt": "2023-10-08T08:50:15.127Z",
+      "paslon": {
+        "id": 3,
+        "name": "Fer D Sambo",
+        "vision": "Menjadi Polisi Nomor 1 Di WakandaNesia.",
+        "image": "https://mardizu.co.id/assets/images/client/default.png",
+        "createdAt": "2023-10-08T08:41:58.597Z",
+        "updatedAt": "2023-10-08T08:41:58.597Z"
+      },
+      "user": {
+        "id": 5,
+        "full_name": "Andry Pebrianto",
+        "email": "andry12345@gmail.com"
+      }
+    },
+    {
+      "id": 4,
+      "createdAt": "2023-10-08T12:32:58.210Z",
+      "updatedAt": "2023-10-08T12:32:58.210Z",
+      "paslon": {
+        "id": 5,
+        "name": "Mega Foo An",
+        "vision": "Menjadi Wakil Rakyat Paling Dicintai Di KonohaNesia",
+        "image": "https://mardizu.co.id/assets/images/client/default.png",
+        "createdAt": "2023-10-08T08:46:05.026Z",
+        "updatedAt": "2023-10-08T08:46:05.026Z"
+      },
+      "user": {
+        "id": 8,
+        "full_name": "Adi Chahyionio",
+        "email": "adichah123@gmail.com"
+      }
+    }
+  ]
 }
 ```
