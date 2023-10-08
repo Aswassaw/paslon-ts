@@ -392,7 +392,7 @@
 
 **Update Paslon By Id**
 
-- URL : http://localhost:5000/api/v1/party/7
+- URL : http://localhost:5000/api/v1/party/6
 
 - Method: PUT
 
