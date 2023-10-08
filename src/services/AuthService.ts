@@ -41,8 +41,12 @@ class AuthService {
       });
 
       const createdUser = await this.UserRepository.save(user);
+      delete createdUser.password;
 
-      return res.status(200).json(createdUser);
+      return res.status(201).json({
+        code: 201,
+        data: createdUser,
+      });
     } catch (error) {
       console.log(error);
       return res.status(500).json({
@@ -96,8 +100,9 @@ class AuthService {
 
       const token = jwt.sign({ user }, "secret-jwt-token", { expiresIn: "1h" });
 
-      return res.status(200).json({
-        user,
+      return res.status(201).json({
+        code: 200,
+        data: user,
         token,
       });
     } catch (error) {
@@ -113,14 +118,14 @@ class AuthService {
     try {
       const loginSession = res.locals.loginSession;
 
-      const user = await this.UserRepository.findOne({
+      await this.UserRepository.findOne({
         where: {
           id: loginSession.user.id,
         },
       });
 
       return res.status(200).json({
-        user,
+        code: 201,
         message: "Token is valid!",
       });
     } catch (error) {
